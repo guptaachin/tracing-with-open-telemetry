@@ -1,5 +1,7 @@
 ## Distributed Tracing with OTel Collector, and Jaeger
 
+![CI](https://github.com/guptaachin/tracing-with-open-telemetry/actions/workflows/validate.yml/badge.svg)
+
 ### 1. Overview
 
 Distributed tracing is essential for understanding the flow of requests across microservices in a complex system. In this guide, we'll set up a tracing pipeline using eBPF, the OpenTelemetry Collector (OTel Collector), and Jaeger.
