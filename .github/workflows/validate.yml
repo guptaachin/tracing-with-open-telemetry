@@ -29,5 +29,5 @@ jobs:
           go-version: '1.22'
 
       - name: Check Go syntax
-        run: go fmt ping-ack-api/ && go vet ping-ack-api/
+        run: go fmt ./ping-ack-api/ && go vet ./ping-ack-api/
 
