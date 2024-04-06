@@ -28,9 +28,5 @@ jobs:
         with:
           go-version: '1.22'
 
-      - name: Change directory to ping-ack-api
-        run: cd ping-ack-api
-
       - name: Check Go syntax
-        run: go fmt ./... && go vet ./...
-
+        run: cd ping-ack-api && go fmt ./... && go vet ./...
