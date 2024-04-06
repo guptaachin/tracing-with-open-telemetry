@@ -1,8 +1,20 @@
-# Tracing with Open Telemetry Collector
+## Distributed Tracing with OTel Collector, and Jaeger
 
+### 1. Overview
+Distributed tracing is essential for understanding the flow of requests across microservices in a complex system. In this guide, we'll set up a tracing pipeline using eBPF, the OpenTelemetry Collector (OTel Collector), and Jaeger.
 
-http://localhost:7997/swagger/index.html
+### 2. Components
+- **PingAckAPI**:
+  - Is a light weight `net/http` API
+  - Exposes `/ping` and /`delay` 
+  - Also has Swagger integrated for easy
+- **OpenTelemetry Collector**:
+  - Collects, processes, and exports telemetry data (including traces).
+  - Acts as an intermediary between eBPF and Jaeger.
+- **Jaeger**:
+  - Distributed tracing system for visualizing and analyzing trace data.
 
-http://localhost:16686/search?end=1712439769944000&limit=20&lookback=1h&maxDuration&minDuration&service=pingack&start=1712436169944000&tags=%7B%22http.target%22%3A%22%2Fdelay%22%7D
+### 3. Accesses
+Access swagger -  http://localhost:7997/swagger/index.html
 
-
+Access jaeger - http://localhost:16686/
