@@ -1,0 +1,33 @@
+name: Validate
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  docker-compose-validation:
+    name: Validate Docker Compose
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Validate Docker Compose syntax
+        run: docker-compose config
+
+  go-syntax-validation:
+    name: Validate Go syntax
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: '1.22'
+
+      - name: Check Go syntax
+        run: go fmt ./... && go vet ./...
+
