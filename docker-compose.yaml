@@ -1,48 +1,68 @@
+# Define the version of Docker Compose used
 version: "3.9"
 
+# Define the networks
 networks:
   default:
     name: pingnw
     driver: bridge
 
+# Define the services
 services:
+  # Service for handling ping acknowledgments
   pingack:
+    # Depend on the Jaeger service
     depends_on:
       - jaeger
+    # Build the service using the context of the ./ping-ack-api/ directory
     build:
       context: ./ping-ack-api/
+    # Host process ID mode
     pid: "host"
+    # Expose ports for communication
     ports:
       - "7997:7997"
+    # Mount volumes for access to the host's /proc directory
     volumes:
       - /proc:/host/proc
 
-  # auto instrument golang app
+  # Service for automatically instrumenting Golang applications
   go-auto:
+    # Depend on the pingack service
     depends_on:
       - pingack
+    # Use the pre-built image for auto-instrumentation of Golang applications
     image: otel/autoinstrumentation-go
+    # Enable privileged mode for more access to system resources
     privileged: true
+    # Host process ID mode
     pid: "host"
+    # Define environment variables for configuration
     environment:
       - OTEL_EXPORTER_OTLP_ENDPOINT=http://jaeger:4318
       - OTEL_GO_AUTO_TARGET_EXE=/app/main
       - OTEL_SERVICE_NAME=pingack
       - OTEL_PROPAGATORS=tracecontext,baggage
+    # Mount volumes for access to the host's /proc directory
     volumes:
       - /proc:/host/proc
 
+  # Jaeger service for distributed tracing
   jaeger:
+    # Use the Jaeger all-in-one image
     image: jaegertracing/all-in-one:latest
+    # Expose ports for communication
     ports:
-      - "16686:16686"
-      - "14268:14268"
+      - "16686:16686" # Jaeger UI
+      - "14268:14268" # Jaeger collector
+    # Define environment variables for configuration
     environment:
       - COLLECTOR_OTLP_ENABLED=true
       - LOG_LEVEL=debug
+    # Configure resource limits for the service
     deploy:
       resources:
         limits:
           memory: 300M
+    # Restart policy for the service
     restart: unless-stopped
-
