@@ -1,0 +1,40 @@
+basePath: /
+host: localhost:7997
+info:
+  contact: {}
+  description: Simple Ping Ack API to explain Swagger and Observability
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  title: Simple Ping Ack API
+  version: "1.0"
+paths:
+  /delay:
+    get:
+      description: DelayPing sends ping requests to return after random wait time
+      operationId: delay
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: Delay Ack
+          schema:
+            type: string
+      summary: DelayPing
+      tags:
+      - delay
+  /ping:
+    get:
+      description: Ping checks API availability
+      operationId: ping
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: Ack
+          schema:
+            type: string
+      summary: Ping
+      tags:
+      - ping
+swagger: "2.0"

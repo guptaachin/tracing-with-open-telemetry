@@ -1,0 +1,59 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "Simple Ping Ack API to explain Swagger and Observability",
+        "title": "Simple Ping Ack API",
+        "contact": {},
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0"
+    },
+    "host": "localhost:7997",
+    "basePath": "/",
+    "paths": {
+        "/delay": {
+            "get": {
+                "description": "DelayPing sends ping requests to return after random wait time",
+                "produces": [
+                    "text/plain"
+                ],
+                "tags": [
+                    "delay"
+                ],
+                "summary": "DelayPing",
+                "operationId": "delay",
+                "responses": {
+                    "200": {
+                        "description": "Delay Ack",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/ping": {
+            "get": {
+                "description": "Ping checks API availability",
+                "produces": [
+                    "text/plain"
+                ],
+                "tags": [
+                    "ping"
+                ],
+                "summary": "Ping",
+                "operationId": "ping",
+                "responses": {
+                    "200": {
+                        "description": "Ack",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
